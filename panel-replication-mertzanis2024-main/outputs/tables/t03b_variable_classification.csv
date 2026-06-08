@@ -1,0 +1,9 @@
+variable,category
+cbmnd,time_invariant
+dum12,time_invariant
+dum9,time_invariant
+rating,double_indexed
+fie,double_indexed
+bndgrn,double_indexed
+gdpg,double_indexed
+infl,double_indexed

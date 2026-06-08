@@ -1,0 +1,4 @@
+spec,N_countries,fs_R2,fs_Fstat,coef_cbmnd,se_cbmnd,stars_cbmnd,coef_cbenf,se_cbenf,stars_cbenf,coef_cbsys,se_cbsys,stars_cbsys
+(1) IV: cbmnd ~ hierarchy+purity,34,0.5326,5.098,-0.516,0.2756,*,-0.1403,0.2063,,-0.1365,0.3016,
+(2) IV: cbenf ~ hierarchy+openness,27,0.5276,4.451,0.3716,0.2002,*,-0.8228,0.3702,**,-0.1967,0.3171,
+(3) IV: cbsys ~ hierarchy+openness,27,0.314,1.745,0.223,0.1916,,-0.1521,0.1557,,1.3719,0.4084,***

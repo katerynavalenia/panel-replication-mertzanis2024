@@ -1,0 +1,394 @@
+======================================================================
+STEP 5 — PANEL DATA REGRESSIONS
+Paper: Mertzanis (2024), Energy Economics 133, 107541
+======================================================================
+Sample: N=53 countries, NT=322 obs with Y
+
+======================================================================
+PAPER TABLE 4 — MAIN RESULTS  (dep. var: bndgrn)
+xvar = cbmnd cbenf cbsys infl rating fie gdpg dum9 dum12
+NOTE: cbmnd/cbenf/cbsys/dum9/dum12 are time-invariant.
+      They are identified only in cols (1)-(2). In cols (3)-(4)
+      they are dropped (collinear with entity dummies, as in Stata).
+======================================================================
+
+  (1) Pooled OLS ...
+  (2) + Year FE ...
+  (3) + Entity FE ...
+  (4) TWFE (Year+Entity) ...
+
+  (1) Pooled OLS: N=206, N_countries=39
+    cbmnd: -0.0429 (0.1266)
+    cbenf: -0.0956 (0.0706)
+    cbsys: -0.0240 (0.2351)
+    infl: -0.0328 (0.0385)
+    rating: 0.6422 (0.4117)
+    fie: 1.8294 (1.6789)
+    gdpg: -0.0456 (0.0311)
+
+  (2) + Year FE: N=206, N_countries=39
+    cbmnd: -0.0872 (0.1274)
+    cbenf: -0.1768 (0.0721)**
+    cbsys: -0.2030 (0.2512)
+    infl: 0.0110 (0.0190)
+    rating: 1.0931 (0.4630)**
+    fie: -0.2073 (1.9434)
+    gdpg: 0.0222 (0.0589)
+
+  (3) + Entity FE: N=224, N_countries=42
+    infl: -0.0450 (0.0378)
+    rating: 0.7834 (0.2186)***
+    fie: 22.3058 (4.4472)***
+    gdpg: -0.0159 (0.0225)
+
+  (4) TWFE: N=224, N_countries=42
+    infl: 0.0074 (0.0127)
+    rating: 0.7713 (0.4275)*
+    fie: 7.5397 (3.6298)**
+    gdpg: 0.0561 (0.0346)
+
+--- Table 4 ---
+          (1) Pooled OLS (2) + Year FE (3) + Entity FE  (4) TWFE
+cbmnd            -0.0429       -0.0872                          
+se_cbmnd        (0.1266)      (0.1274)                          
+cbenf            -0.0956     -0.1768**                          
+se_cbenf        (0.0706)      (0.0721)                          
+cbsys             -0.024        -0.203                          
+se_cbsys        (0.2351)      (0.2512)                          
+infl             -0.0328         0.011          -0.045    0.0074
+se_infl         (0.0385)       (0.019)        (0.0378)  (0.0127)
+rating            0.6422      1.0931**       0.7834***   0.7713*
+se_rating       (0.4117)       (0.463)        (0.2186)  (0.4275)
+fie               1.8294       -0.2073      22.3058***  7.5397**
+se_fie          (1.6789)      (1.9434)        (4.4472)  (3.6298)
+gdpg             -0.0456        0.0222         -0.0159    0.0561
+se_gdpg         (0.0311)      (0.0589)        (0.0225)  (0.0346)
+dum9              0.4879        0.6425                          
+se_dum9         (0.5317)      (0.5778)                          
+dum12            -0.1351        0.2743                          
+se_dum12        (0.5736)      (0.5719)                          
+N_obs                206           206             224       224
+N_ids                 39            39              42        42
+R2                0.1007        0.4152          0.2484    0.0444
+
+*** p<0.01  ** p<0.05  * p<0.10  (cluster-robust SE in parentheses)
+Blank cells in cols (3)-(4): variable dropped due to collinearity with entity FE.
+
+======================================================================
+PAPER TABLE 5 — ROBUSTNESS
+======================================================================
+
+  (1) Gov bonds TWFE ...
+
+  (2) Corp bonds +Entity FE ...
+    N=224, N_ids=42
+    infl: -0.0456 (0.0382)
+    rating: 0.7925 (0.2134)***
+    fie: 22.6459 (4.4780)***
+    gdpg: -0.0164 (0.0232)
+
+  (3) Developed Pooled+YrFE ...
+    N=196, N_ids=36
+    cbmnd: -0.1538 (0.1334)
+    cbenf: -0.1959 (0.0751)**
+    cbsys: -0.2140 (0.2593)
+    infl: 0.0073 (0.0186)
+    rating: 1.2831 (0.4623)***
+    fie: -0.0004 (1.9604)
+    gdpg: -0.0330 (0.0595)
+
+  (4) Developing Pooled OLS ...
+
+  (5) Ex-China Pooled+YrFE ...
+    N=199, N_ids=38
+    cbmnd: 0.1028 (0.1055)
+    cbenf: -0.1919 (0.0718)**
+    cbsys: -0.0354 (0.2351)
+    infl: 0.0177 (0.0204)
+    rating: 0.6653 (0.4256)
+    fie: 0.0176 (1.5801)
+    gdpg: -0.0456 (0.0564)
+
+  (6) Non-linear Pooled+YrFE ...
+    N=206, N_ids=39
+    cbmnd: -1.2055 (0.3695)***
+    cbenf: -0.4953 (0.4280)
+    cbsys: 0.4885 (0.7815)
+    infl: 0.0045 (0.0205)
+    rating: 0.9749 (0.3984)**
+    fie: 0.2919 (1.6088)
+    gdpg: -0.0383 (0.0592)
+
+--- Table 5 ---
+           (2) Corp bonds +Entity FE (3) Developed Pooled+YrFE (5) Ex-China Pooled+YrFE (6) Non-linear Pooled+YrFE
+cbmnd                                                  -0.1538                   0.1028                 -1.2055***
+se_cbmnd                                              (0.1334)                 (0.1055)                   (0.3695)
+cbenf                                                -0.1959**                -0.1919**                    -0.4953
+se_cbenf                                              (0.0751)                 (0.0718)                    (0.428)
+cbsys                                                   -0.214                  -0.0354                     0.4885
+se_cbsys                                              (0.2593)                 (0.2351)                   (0.7815)
+infl                         -0.0456                    0.0073                   0.0177                     0.0045
+se_infl                     (0.0382)                  (0.0186)                 (0.0204)                   (0.0205)
+rating                     0.7925***                 1.2831***                   0.6653                   0.9749**
+se_rating                   (0.2134)                  (0.4623)                 (0.4256)                   (0.3984)
+fie                       22.6459***                   -0.0004                   0.0176                     0.2919
+se_fie                       (4.478)                  (1.9604)                 (1.5801)                   (1.6088)
+gdpg                         -0.0164                    -0.033                  -0.0456                    -0.0383
+se_gdpg                     (0.0232)                  (0.0595)                 (0.0564)                   (0.0592)
+cbmndsq                                                                                                  0.1268***
+se_cbmndsq                                                                                                (0.0446)
+cbenfsq                                                                                                      0.038
+se_cbenfsq                                                                                                (0.0676)
+cbsyssq                                                                                                    -0.2474
+se_cbsyssq                                                                                                (0.3321)
+N_obs                            224                       196                      199                        206
+N_ids                             42                        36                       38                         39
+R2                            0.2453                    0.4426                   0.4547                     0.4865
+
+======================================================================
+PAPER TABLE 7 — ADDITIONAL CONTROLS (pooled + year FE)
+======================================================================
+
+  (1) + Risk premiums ...
+    N=206
+    cbmnd: -0.1067 (0.1205)
+    cbenf: -0.1438 (0.0646)**
+    cbsys: -0.2190 (0.2546)
+
+  (2) + Energy/Env ...
+    N=181
+    cbmnd: -0.0872 (0.1464)
+    cbenf: -0.1607 (0.0814)*
+    cbsys: -0.2197 (0.2480)
+
+  (3) + Geopolitical ...
+    N=196
+    cbmnd: -0.0783 (0.1483)
+    cbenf: -0.1565 (0.0779)*
+    cbsys: -0.2635 (0.2633)
+
+--- Table 7 ---
+           (1) + Risk premiums (2) + Energy/Env (3) + Geopolitical
+cbmnd                  -0.1067          -0.0872            -0.0783
+se_cbmnd              (0.1205)         (0.1464)           (0.1483)
+cbenf                -0.1438**         -0.1607*           -0.1565*
+se_cbenf              (0.0646)         (0.0814)           (0.0779)
+cbsys                   -0.219          -0.2197            -0.2635
+se_cbsys              (0.2546)          (0.248)           (0.2633)
+infl                    0.0201           0.0135             0.0211
+se_infl               (0.0179)         (0.0215)           (0.0181)
+rating                 -0.3992          0.9876*           1.2001**
+se_rating             (0.7844)          (0.549)           (0.4855)
+fie                    -1.9463           0.8303            -0.6123
+se_fie                (1.9896)         (2.0162)           (2.1321)
+gdpg                    0.0421          -0.0271             0.0136
+se_gdpg               (0.0577)         (0.0632)           (0.0659)
+dum9                    0.7101           1.0196             0.7435
+se_dum9                (0.518)         (0.6556)           (0.5932)
+dum12                   0.2635           1.0159             0.3837
+se_dum12              (0.4873)         (0.6251)           (0.5996)
+riskeqt               -20.5421                                    
+se_riskeqt           (48.4419)                                    
+riskctr                -72.277                                    
+se_riskctr            (61.685)                                    
+enrgoil                                  -0.029                   
+se_enrgoil                             (0.0216)                   
+envtax                                  -0.3705                   
+se_envtax                              (0.3264)                   
+gprlog                                                    0.8555**
+se_gprlog                                                 (0.3218)
+wui                                                        -0.7319
+se_wui                                                    (0.7777)
+N_obs                      206              181                196
+N_ids                       39               34                 37
+R2                      0.4495            0.489             0.4155
+
+======================================================================
+HOMEWORK TABLE H — ADDITIONAL ESTIMATORS
+Between | One-Way FE | Mundlak RE | TWFE | First Differences
+NOTE: CB variables shown only where estimator identifies them.
+======================================================================
+
+  [HW1] Between OLS ...
+                         BetweenOLS Estimation Summary                          
+================================================================================
+Dep. Variable:                 bndgrn   R-squared:                        0.2255
+Estimator:                 BetweenOLS   R-squared (Between):              0.2255
+No. Observations:                  39   R-squared (Within):              -0.1239
+Date:                Sun, Jun 07 2026   R-squared (Overall):             -0.0100
+Time:                        23:06:44   Log-likelihood                   -60.203
+Cov. Estimator:                Robust                                           
+                                        F-statistic:                      0.9707
+Entities:                          39   P-value                           0.4829
+Avg Obs:                       5.2821   Distribution:                    F(9,30)
+Min Obs:                       2.0000                                           
+Max Obs:                       11.000   F-statistic (robust):             1.8580
+                                        P-value                           0.0983
+Time periods:                      16   Distribution:                    F(9,30)
+Avg Obs:                       12.875                                           
+Min Obs:                       1.0000                                           
+Max Obs:                       37.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+cbmnd         -0.0794     0.1139    -0.6970     0.4912     -0.3120      0.1532
+cbenf         -0.1125     0.0981    -1.1468     0.2605     -0.3130      0.0879
+cbsys         -0.1851     0.2738    -0.6758     0.5043     -0.7443      0.3742
+infl          -0.0822     0.0670    -1.2266     0.2295     -0.2189      0.0546
+rating         0.4603     0.3482     1.3221     0.1961     -0.2508      1.1714
+fie           -0.9604     1.6278    -0.5900     0.5596     -4.2848      2.3640
+gdpg           0.0747     0.1258     0.5935     0.5573     -0.1823      0.3317
+dum9           0.2996     0.6265     0.4782     0.6360     -0.9799      1.5791
+dum12          0.2106     0.5239     0.4019     0.6906     -0.8595      1.2806
+==============================================================================
+
+  [HW2] One-Way FE (entity) ...
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                 bndgrn   R-squared:                        0.2392
+Estimator:                   PanelOLS   R-squared (Between):             -236.24
+No. Observations:                 206   R-squared (Within):               0.2392
+Date:                Sun, Jun 07 2026   R-squared (Overall):             -113.58
+Time:                        23:06:44   Log-likelihood                   -330.59
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      12.814
+Entities:                          39   P-value                           0.0000
+Avg Obs:                       5.2821   Distribution:                   F(4,163)
+Min Obs:                       2.0000                                           
+Max Obs:                       11.000   F-statistic (robust):             8.2064
+                                        P-value                           0.0000
+Time periods:                      16   Distribution:                   F(4,163)
+Avg Obs:                       12.875                                           
+Min Obs:                       1.0000                                           
+Max Obs:                       37.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+infl          -0.0449     0.0378    -1.1864     0.2372     -0.1195      0.0298
+rating         0.7617     0.2369     3.2146     0.0016      0.2938      1.2296
+fie            21.455     4.5881     4.6762     0.0000      12.395      30.514
+gdpg          -0.0147     0.0229    -0.6442     0.5203     -0.0599      0.0305
+==============================================================================
+
+F-test for Poolability: 5.0711
+P-value: 0.0000
+Distribution: F(38,163)
+
+Included effects: Entity
+
+  [HW3] Mundlak RE ...
+                        RandomEffects Estimation Summary                        
+================================================================================
+Dep. Variable:                 bndgrn   R-squared:                        0.2340
+Estimator:              RandomEffects   R-squared (Between):              0.2223
+No. Observations:                 206   R-squared (Within):               0.2392
+Date:                Sun, Jun 07 2026   R-squared (Overall):              0.2035
+Time:                        23:06:44   Log-likelihood                   -346.76
+Cov. Estimator:                Robust                                           
+                                        F-statistic:                      4.5356
+Entities:                          39   P-value                           0.0000
+Avg Obs:                       5.2821   Distribution:                  F(13,193)
+Min Obs:                       2.0000                                           
+Max Obs:                       11.000   F-statistic (robust):             4.2176
+                                        P-value                           0.0000
+Time periods:                      16   Distribution:                  F(13,193)
+Avg Obs:                       12.875                                           
+Min Obs:                       1.0000                                           
+Max Obs:                       37.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+cbmnd         -0.0867     0.1368    -0.6339     0.5269     -0.3565      0.1831
+cbenf         -0.1004     0.1507    -0.6666     0.5058     -0.3977      0.1968
+cbsys         -0.1381     0.2264    -0.6099     0.5427     -0.5845      0.3084
+infl          -0.0449     0.0351    -1.2780     0.2028     -0.1141      0.0244
+rating         0.7617     0.6908     1.1026     0.2716     -0.6008      2.1242
+fie            21.455     3.8937     5.5101     0.0000      13.775      29.134
+gdpg          -0.0147     0.0257    -0.5743     0.5664     -0.0654      0.0359
+dum9           0.3670     0.5566     0.6593     0.5105     -0.7309      1.4649
+dum12          0.1863     0.5409     0.3444     0.7309     -0.8805      1.2531
+infl_bar      -0.0295     0.0683    -0.4313     0.6667     -0.1642      0.1053
+rating_bar    -0.3025     0.8507    -0.3556     0.7225     -1.9804      1.3754
+fie_bar       -22.510     4.3255    -5.2039     0.0000     -31.041     -13.978
+gdpg_bar       0.0966     0.1519     0.6360     0.5255     -0.2030      0.3962
+==============================================================================
+
+  [HW4] TWFE ...
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                 bndgrn   R-squared:                        0.0512
+Estimator:                   PanelOLS   R-squared (Between):             -50.312
+No. Observations:                 206   R-squared (Within):               0.0664
+Date:                Sun, Jun 07 2026   R-squared (Overall):             -23.729
+Time:                        23:06:44   Log-likelihood                   -256.32
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.9978
+Entities:                          39   P-value                           0.0978
+Avg Obs:                       5.2821   Distribution:                   F(4,148)
+Min Obs:                       2.0000                                           
+Max Obs:                       11.000   F-statistic (robust):             2.8900
+                                        P-value                           0.0244
+Time periods:                      16   Distribution:                   F(4,148)
+Avg Obs:                       12.875                                           
+Min Obs:                       1.0000                                           
+Max Obs:                       37.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+infl           0.0078     0.0127     0.6183     0.5373     -0.0172      0.0328
+rating         0.7428     0.4409     1.6848     0.0941     -0.1284      1.6140
+fie            7.8801     3.5204     2.2384     0.0267      0.9234      14.837
+gdpg           0.0608     0.0358     1.6969     0.0918     -0.0100      0.1315
+==============================================================================
+
+F-test for Poolability: 9.7401
+P-value: 0.0000
+Distribution: F(53,148)
+
+Included effects: Entity, Time
+
+  [HW5] First Differences ...
+                     FirstDifferenceOLS Estimation Summary                      
+================================================================================
+Dep. Variable:                 bndgrn   R-squared:                        0.2276
+Estimator:         FirstDifferenceOLS   R-squared (Between):             -228.47
+No. Observations:                 144   R-squared (Within):               0.2126
+Date:                Sun, Jun 07 2026   R-squared (Overall):             -108.08
+Time:                        23:06:44   Log-likelihood                   -260.59
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      10.313
+Entities:                          39   P-value                           0.0000
+Avg Obs:                       5.2821   Distribution:                   F(4,140)
+Min Obs:                       2.0000                                           
+Max Obs:                       11.000   F-statistic (robust):             8.5914
+                                        P-value                           0.0000
+Time periods:                      16   Distribution:                   F(4,140)
+Avg Obs:                       12.875                                           
+Min Obs:                       1.0000                                           
+Max Obs:                       37.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+infl          -0.0395     0.0306    -1.2915     0.1986     -0.1001      0.0210
+rating        -0.6600     1.2497    -0.5282     0.5982     -3.1307      1.8106
+fie            27.446     5.2546     5.2232     0.0000      17.057      37.834
+gdpg          -0.0190     0.0305    -0.6246     0.5333     -0.0793      0.0412
+==============================================================================
+
+--- Homework comparison ---
+     model  N_obs  N_ids  coef_cbmnd  se_cbmnd stars_cbmnd  coef_cbenf  se_cbenf stars_cbenf  coef_cbsys  se_cbsys stars_cbsys  coef_infl  se_infl stars_infl  coef_rating  se_rating stars_rating  coef_fie  se_fie stars_fie  coef_gdpg  se_gdpg stars_gdpg
+   Between     39     39     -0.0794    0.1139                 -0.1125    0.0981                 -0.1851    0.2738                -0.0822   0.0670                  0.4603     0.3482                -0.9604  1.6278               0.0747   0.1258           
+One-Way FE    206     39         NaN       NaN                     NaN       NaN                     NaN       NaN                -0.0449   0.0378                  0.7617     0.2369          ***   21.4546  4.5881       ***    -0.0147   0.0229           
+Mundlak RE    206     39     -0.0867    0.1368                 -0.1004    0.1507                 -0.1381    0.2264                -0.0449   0.0351                  0.7617     0.6908                21.4546  3.8937       ***    -0.0147   0.0257           
+      TWFE    206     39         NaN       NaN                     NaN       NaN                     NaN       NaN                 0.0078   0.0127                  0.7428     0.4409            *    7.8801  3.5204        **     0.0608   0.0358          *
+First Diff    144     39         NaN       NaN                     NaN       NaN                     NaN       NaN                -0.0395   0.0306                 -0.6600     1.2497                27.4458  5.2546       ***    -0.0190   0.0305           

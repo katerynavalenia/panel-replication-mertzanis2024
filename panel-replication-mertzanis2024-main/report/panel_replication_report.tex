@@ -1,0 +1,616 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{parskip}
+\onehalfspacing
+
+\title{\textbf{Panel Data Replication Study}\\[0.5em]
+\large Mertzanis (2024): ``Central Bank Policies and Green Bond Issuance on a Global Scale''\\
+\normalsize \textit{Energy Economics}, 133, 107541}
+\author{Valenia Khrystyna Kateryna \and Cotarta Anca \and Huang Jiayu}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\begin{abstract}
+This report partially replicates Mertzanis (2024), who studies the effect of
+central bank green policies on green bond issuance across 53 countries
+(1991--2021). We obtain the Mendeley dataset (76 countries total; 23 excluded
+for insufficient consecutive observations) and apply five panel estimators:
+Pooled OLS, Year FE, Entity FE, Two-Way FE (TWFE), and First Differences (FD),
+plus IV and dynamic panel extensions. The three main central bank policy
+variables (\texttt{cbmnd}, \texttt{cbenf}, \texttt{cbsys}) are
+\emph{time-invariant} -- 0\% within-country variance -- and are mechanically
+dropped by entity-FE estimators. In pooled OLS, none is statistically
+significant. Only \texttt{cbenf} is weakly significant ($-0.177$, p$=$0.02)
+in the Year FE specification. The most robust finding is the financial
+integration index (\texttt{fie}): $+22.31$*** in entity FE, $+7.54$** in
+TWFE, and $+27.45$*** in First Differences. All IV first-stage F-statistics
+are below 10 (weak instruments). The autocorrelation of
+$\Delta$\texttt{bndgrn} ($=-0.513$) triggers Anderson-Hsiao; however,
+$\Delta X_{\text{CB}}=0$ throughout (CB variables are time-invariant),
+making the dynamic extension degenerate for CB variables.
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Paper and research question}
+
+Mertzanis (2024) asks: do central bank green policies stimulate green bond
+issuance? Using a country-level panel of 46 countries over 2007--2021, the
+paper finds that CB mandates and enforcement policies positively predict green
+bond volumes after controlling for financial development, governance, and
+macroeconomic conditions.
+
+\subsection{Summary of key results}
+
+The critical methodological constraint is that the three CB policy variables
+are time-invariant: constant within each country across all years. Entity-FE
+estimators drop them by construction. Table~\ref{tab:keyfind} summarises the
+main coefficients from our replication.
+
+\begin{table}[H]
+\centering
+\caption{Key findings from replication}
+\label{tab:keyfind}
+\begin{tabular}{llcc}
+\toprule
+Estimator & Variable & Coeff. & Sig. \\
+\midrule
+Pooled OLS    & cbmnd & $-$0.043 & \\
+Pooled OLS    & cbenf & $-$0.096 & \\
+Year FE       & cbenf & $-$0.177 & ** \\
+\midrule
+Between OLS       & fie & $-$0.960 & \\
+Entity FE         & fie & $+$22.31 & *** \\
+Mundlak RE        & fie & $+$21.45 & *** \\
+TWFE              & fie & $+$7.540 & ** \\
+First Differences & fie & $+$27.45 & *** \\
+\midrule
+IV (cbmnd) & cbmnd & $-$0.516 & * \\
+IV (cbenf) & cbenf & $-$0.823 & ** \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textit{Note}: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+Cluster-robust SE by country.
+
+\section{Database}
+
+\subsection{Data source and variables}
+
+Data come from Mertzanis (2024), deposited on Mendeley Data
+(doi:10.17632/xb2m4m8h24.1). The raw file contains 76 countries with up to
+16 annual observations. The regression sample (complete controls) comprises
+N$=$39 countries, NT$=$206 observations.
+
+\begin{table}[H]
+\centering
+\caption{Variable definitions}
+\label{tab:vars}
+\begin{tabular}{p{2.1cm}p{5.8cm}p{3.8cm}}
+\toprule
+Name & Description & Source \\
+\midrule
+\texttt{bndgrn} & Log total green bond issuance (USD bn) & Climate Bonds Initiative \\
+\texttt{cbmnd}  & CB green mandate index (0--8) & Mertzanis (2024) \\
+\texttt{cbenf}  & CB enforcement policy index (0--9) & Mertzanis (2024) \\
+\texttt{cbsys}  & CB systemic risk index (0--3) & Mertzanis (2024) \\
+\texttt{fie}    & IMF financial integration index & IMF \\
+\texttt{rating} & Moody's sovereign rating (numeric) & Moody's \\
+\texttt{gdpg}   & GDP growth rate (\%) & World Bank \\
+\texttt{infl}   & CPI inflation (\%) & World Bank \\
+\texttt{dum9}   & EU membership dummy (0/1) & World Bank \\
+\texttt{dum12}  & OECD membership dummy (0/1) & World Bank \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Summary statistics}
+
+\begin{table}[H]
+\centering
+\caption{Descriptive statistics (regression sample, N$=$206)}
+\label{tab:sumstats}
+\begin{tabular}{lrrrrrr}
+\toprule
+Variable & N & Mean & SD & Min & Median & Max \\
+\midrule
+bndgrn  & 206 & 0.109 & 1.853 & $-$4.914 &  0.220 &  3.723 \\
+cbmnd   & 206 & 4.733 & 1.773 &    0.000 &  4.000 &  8.000 \\
+cbenf   & 206 & 5.126 & 1.833 &    0.000 &  6.000 &  6.000 \\
+cbsys   & 206 & 1.029 & 0.997 &    0.000 &  1.000 &  3.000 \\
+infl    & 206 & 2.313 & 4.904 & $-$28.620 & 1.650 & 32.300 \\
+rating  & 206 & 3.733 & 0.475 &    2.000 &  4.000 &  4.000 \\
+fie     & 206 & 0.793 & 0.107 &    0.472 &  0.824 &  0.939 \\
+gdpg    & 206 & 1.140 & 3.748 & $-$14.868 & 1.963 &  8.516 \\
+dum9    & 206 & 0.384 & 0.487 &    0.000 &  0.000 &  1.000 \\
+dum12   & 206 & 0.743 & 0.438 &    0.000 &  1.000 &  1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Sample Selection}
+
+\subsection{Consecutive-observation rule}
+
+We retain only country-year observations where the country has at least
+3 consecutive observations for \texttt{bndgrn}. Of 76 countries, 23 are
+excluded (e.g.\ Bangladesh, Nigeria, Romania) -- smaller or less advanced
+markets with only sporadic green bond activity.
+
+\begin{table}[H]
+\centering
+\caption{Sample selection}
+\label{tab:sample}
+\begin{tabular}{lrr}
+\toprule
+Step & Countries & Obs \\
+\midrule
+Raw dataset                            & 76 & --- \\
+After consecutive-obs rule ($\geq 3$)  & 53 & 322 \\
+Regression sample (complete controls)  & 39 & 206 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Distribution of time observations}
+
+The cleaned panel is strongly unbalanced. Most countries enter after 2013
+as the green bond market grew. Twenty of 53 countries have only 3--4 annual
+observations; 8 countries have 7--11 observations.
+
+\begin{table}[H]
+\centering
+\caption{Distribution of T per country}
+\label{tab:tdist}
+\begin{tabular}{crr}
+\toprule
+T & Countries & Obs \\
+\midrule
+1  & 5  &   5 \\
+2  & 2  &   4 \\
+3  & 7  &  21 \\
+4  & 13 &  52 \\
+5  & 8  &  40 \\
+6  & 7  &  42 \\
+7  & 8  &  56 \\
+8--11 & 3 & 29 \\
+\midrule
+Total & 53 & 322 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent Observations per year rise from N$=$1 (1991--1994) to N$=$51
+(2021), reflecting rapid green bond market growth post-2015.
+
+\section{Variable Classification}
+
+\subsection{Variance decomposition}
+
+\begin{table}[H]
+\centering
+\caption{Variable classification by within-variance share}
+\label{tab:varclass}
+\begin{tabular}{llr}
+\toprule
+Category & Variables & Count \\
+\midrule
+Time-invariant (0\% within)  & cbmnd, cbenf, cbsys, dum9, dum12 & 5 \\
+Mostly between ($<$10\%)     & rating (4.2\%), fie (7.7\%)       & 2 \\
+Mostly within ($>$50\%)      & bndgrn (59.4\%), gdpg (62.0\%), infl (75.5\%) & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Variance decomposition (sorted by within \%)}
+\label{tab:vardec}
+\begin{tabular}{lrrrrr}
+\toprule
+Variable & N & NT & Var Between & Var Within & Within \% \\
+\midrule
+cbmnd   & 53 & 283 & 3.302 & 0.000 &  0.0\% \\
+cbenf   & 53 & 283 & ---   & 0.000 &  0.0\% \\
+cbsys   & 53 & 283 & ---   & 0.000 &  0.0\% \\
+dum9    & 53 & 322 & 0.215 & 0.000 &  0.0\% \\
+dum12   & 53 & 322 & 0.254 & 0.000 &  0.0\% \\
+rating  & 53 & 316 & 0.366 & 0.011 &  4.2\% \\
+fie     & 53 & 289 & 0.010 & 0.001 &  7.7\% \\
+bndgrn  & 53 & 322 & 1.570 & 2.149 & 59.4\% \\
+gdpg    & 53 & 302 & 23.34 & 17.50 & 62.0\% \\
+infl    & 53 & 291 & 6.554 & 14.35 & 75.5\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Critical implication}: \texttt{cbmnd}, \texttt{cbenf},
+\texttt{cbsys}, \texttt{dum9}, and \texttt{dum12} have exactly 0\%
+within-country variance. Entity-FE estimators drop them by construction.
+Only Pooled OLS, Year FE, Between OLS, and Mundlak RE can identify their
+coefficients.
+
+\section{Descriptive Statistics}
+
+\subsection{Univariate statistics across transformations}
+
+\begin{table}[H]
+\centering
+\caption{Descriptive statistics: \texttt{bndgrn} across transformations}
+\label{tab:desc}
+\begin{tabular}{lrrrrrr}
+\toprule
+Transform & N & Mean & Std & p25 & Median & p75 \\
+\midrule
+Between        & 322 &  0.120 & 1.213 & $-$0.622 &  0.155 & 0.938 \\
+One-Way Within & 322 &  0.000 & 1.466 & $-$0.885 &  0.196 & 0.957 \\
+First Diff     & 269 &  0.473 & 1.411 & $-$0.271 &  0.403 & 1.157 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textit{Note}: The balanced-TWFE subsample contains only 15
+observations (all variables collapse to near-zero variance), so TWFE
+descriptive statistics are degenerate. Regression TWFE uses the
+Wansbeek-Kapteijn (1989) unbalanced method instead.
+
+\subsection{Correlation matrices (key entries)}
+
+Between: $r(\bar{\texttt{bndgrn}}, \bar{\texttt{fie}}) = +0.207$.
+CB dummies: cbmnd $-0.07$, cbenf $-0.13$, cbsys $+0.02$ (all insignificant).
+
+One-way within: $r(\widetilde{\texttt{bndgrn}}, \widetilde{\texttt{fie}}) = +0.387$.
+
+First differences: $r(\Delta\texttt{bndgrn}, \Delta\texttt{fie}) = +0.048$.
+
+\subsection{Country heterogeneity}
+
+Because CB variables are time-invariant, $\Delta X_{\text{CB}}=0$ for all
+observations and country-level correlations $r(\Delta Y, \Delta X_{\text{CB}})$
+are undefined. Heterogeneity analysis focuses on \texttt{fie}. Countries such
+as Germany ($r=0.71$ in TWFE) and Norway ($r=0.65$) show strong positive
+within-country correlations. A small number (Peru, Turkey) show negative
+correlations, likely reflecting noise in short series (T$=$3--4).
+
+\section{Panel Estimation Results}
+
+\subsection{Main regression table (replication of Paper Table 4)}
+
+\begin{table}[H]
+\centering
+\caption{Panel regression results: replication of Paper Table 4
+  (dep.\ var.: \texttt{bndgrn})}
+\label{tab:mainreg}
+\begin{tabular}{lrrrr}
+\toprule
+ & (1) Pooled & (2) +Year FE & (3) +Entity FE & (4) TWFE \\
+\midrule
+cbmnd  & $-$0.043 & $-$0.087   &          &         \\
+       & (0.127)  & (0.127)    &          &         \\
+cbenf  & $-$0.096 & $-$0.177** &          &         \\
+       & (0.071)  & (0.072)    &          &         \\
+cbsys  & $-$0.024 & $-$0.203   &          &         \\
+       & (0.235)  & (0.251)    &          &         \\
+infl   & $-$0.033 & $+$0.011   & $-$0.045 & $+$0.007 \\
+       & (0.039)  & (0.019)    & (0.038)  & (0.013)  \\
+rating & $+$0.642 & $+$1.093** & $+$0.783*** & $+$0.771* \\
+       & (0.412)  & (0.463)    & (0.219)  & (0.428)  \\
+fie    & $+$1.829 & $-$0.207   & $+$22.31*** & $+$7.540** \\
+       & (1.679)  & (1.943)    & (4.447)  & (3.630)  \\
+gdpg   & $-$0.046 & $+$0.022   & $-$0.016 & $+$0.056 \\
+       & (0.031)  & (0.059)    & (0.023)  & (0.035)  \\
+dum9   & $+$0.488 & $+$0.643   &          &         \\
+       & (0.532)  & (0.578)    &          &         \\
+dum12  & $-$0.135 & $+$0.274   &          &         \\
+       & (0.574)  & (0.572)    &          &         \\
+\midrule
+Entity FE & No & No & Yes & Yes \\
+Time FE   & No & Yes & No  & Yes \\
+\midrule
+N (obs)       & 206 & 206 & 224 & 224 \\
+N (countries) & 39  & 39  & 42  & 42  \\
+R$^2$         & 0.101 & 0.415 & 0.248 & 0.044 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textit{Note}: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+Cluster-robust SE in parentheses.
+Blank cells = dropped due to collinearity with entity dummies (correct behaviour).
+
+\subsection{Homework estimator comparison}
+
+\begin{table}[H]
+\centering
+\caption{Five-estimator comparison (homework specification)}
+\label{tab:hw}
+\begin{tabular}{lrrrrr}
+\toprule
+Estimator & N obs & N ctry & fie coef & SE & Sig \\
+\midrule
+Between OLS       & 39  & 39 & $-$0.960 & 1.628 & \\
+One-Way FE        & 206 & 39 & $+$21.455 & 4.588 & *** \\
+Mundlak RE        & 206 & 39 & $+$21.455 & 3.894 & *** \\
+TWFE              & 206 & 39 & $+$7.880  & 3.520 & ** \\
+First Differences & 144 & 39 & $+$27.446 & 5.255 & *** \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent CB variables are NaN in FE/TWFE/FD. In Between and Mundlak RE:
+all negative, none significant (p\,$>$\,0.25).
+
+\subsection{Notes on CB policy variables}
+
+In Pooled OLS all three CB variables are insignificant (p\,$>$\,0.10).
+In Year FE only \texttt{cbenf} achieves weak significance
+($-0.177$**, SE$=$0.072). Negative signs contrast with Mertzanis (2024).
+
+\section{Robustness Checks (Paper Table 5)}
+
+\begin{table}[H]
+\centering
+\caption{Robustness checks}
+\label{tab:robust}
+\begin{tabular}{lrrrr}
+\toprule
+ & (2) Corp+EntFE & (3) Developed & (5) Ex-China & (6) Non-linear \\
+\midrule
+cbmnd  &          & $-$0.154   & $+$0.103  & $-$1.206*** \\
+cbenf  &          & $-$0.196** & $-$0.192** & $-$0.495 \\
+cbsys  &          & $-$0.214   & $-$0.035  & $+$0.489 \\
+fie    & $+$22.65*** & $-$0.000 & $+$0.018 & $+$0.292 \\
+rating & $+$0.793*** & $+$1.283*** & $+$0.665 & $+$0.975** \\
+cbmnd$^2$ &      &          &          & $+$0.127*** \\
+\midrule
+N obs  & 224 & 196 & 199 & 206 \\
+R$^2$  & 0.245 & 0.443 & 0.455 & 0.487 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent The non-linear spec reveals a U-shaped \texttt{cbmnd} relationship:
+linear term $-1.206$*** and squared term $+0.127$***, suggesting moderate
+mandates suppress issuance but very broad mandates may eventually support it.
+
+\section{Additional Controls (Paper Table 7)}
+
+\begin{table}[H]
+\centering
+\caption{Additional controls (year FE + pooled OLS)}
+\label{tab:addctrl}
+\begin{tabular}{lrrr}
+\toprule
+ & (1) +Risk premia & (2) +Energy/Env & (3) +Geopolitical \\
+\midrule
+cbmnd   & $-$0.107   & $-$0.087   & $-$0.078   \\
+cbenf   & $-$0.144** & $-$0.161*  & $-$0.157*  \\
+cbsys   & $-$0.219   & $-$0.220   & $-$0.264   \\
+fie     & $-$1.946   & $+$0.830   & $-$0.612   \\
+rating  & $-$0.399   & $+$0.988*  & $+$1.200** \\
+riskeqt & $-$20.54   &            &            \\
+riskctr & $-$72.28   &            &            \\
+enrgoil &            & $-$0.029   &            \\
+envtax  &            & $-$0.371   &            \\
+gprlog  &            &            & $+$0.856** \\
+wui     &            &            & $-$0.732   \\
+\midrule
+N obs   & 206 & 181 & 196 \\
+R$^2$   & 0.450 & 0.489 & 0.416 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent \texttt{cbenf} remains significant at 10\% in all three columns.
+The geopolitical risk index (\texttt{gprlog}: $+0.856$**, SE$=$0.322) is the
+only additional control achieving 5\% significance.
+
+\section{Hausman Test and Estimator Choice}
+
+The Hausman test comparing One-Way FE against standard RE favours FE
+(rejection at 5\%). Mundlak RE yields \texttt{fie} $=21.455$ in both
+specifications, confirming internal consistency. FE is the preferred
+estimator for causal inference on time-varying regressors.
+
+\section{Time-Invariant Variables: IV and Interactions}
+
+\subsection{IV / 2SLS on country means (Paper Table 6)}
+
+\begin{table}[H]
+\centering
+\caption{IV / 2SLS results (country-means, cultural instruments)}
+\label{tab:iv}
+\begin{tabular}{lrrrr}
+\toprule
+Spec & N & 1st-F & cbmnd & cbenf \\
+\midrule
+(1) cbmnd $\sim$ hierarchy+purity   & 34 & 5.10 & $-$0.516* & $-$0.140 \\
+(2) cbenf $\sim$ hierarchy+openness & 27 & 4.45 & $+$0.372* & $-$0.823** \\
+(3) cbsys $\sim$ hierarchy+openness & 27 & 1.75 & $+$0.223  & $-$0.152 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Weak instruments}: all F-stats below 10.
+IV estimates should be interpreted with caution.
+
+\subsection{Interaction models (Paper Table 9)}
+
+\begin{table}[H]
+\centering
+\caption{cbenf $\times$ country characteristic}
+\label{tab:interact}
+\begin{tabular}{lrrr}
+\toprule
+Interaction & N & Interact.\ coef & p-value \\
+\midrule
+cbenf $\times$ prodstr & 205 & $-$0.088 & 0.562 \\
+cbenf $\times$ bigtech & 152 & $+$0.0017 & 0.086* \\
+cbenf $\times$ ngain   & 165 & $-$0.029 & 0.352 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent Only the \texttt{bigtech} interaction is marginally significant:
+the negative \texttt{cbenf} effect is attenuated in countries with larger
+tech sectors.
+
+\section{Dynamic Panel Estimation (Anderson-Hsiao)}
+
+The autocorrelation of $\Delta$\texttt{bndgrn} is
+$r(\Delta Y_t, \Delta Y_{t-1}) = -0.513$ (p\,$<$\,0.001), exceeding
+the 0.10 trigger threshold. Anderson-Hsiao (1981) is applied, using
+$Y_{i,t-2}$ and $X_{i,t-2}$ as instruments.
+
+\noindent\textbf{Important caveat}: $\Delta X_{\text{CB}} = 0$ for all
+observations. The dynamic regressor \texttt{dX} is degenerate; impulse
+responses and the long-run coefficient are undefined.
+
+\begin{table}[H]
+\centering
+\caption{Dynamic panel: key parameters}
+\label{tab:dynamic}
+\begin{tabular}{lrrrr}
+\toprule
+Parameter & OLS & SE & IV (AH) & SE \\
+\midrule
+$\beta_y$ ($\Delta Y_{t-1}$) & $-$0.381 & 0.089 & $+$0.039 & 0.200 \\
+$\Delta$fie & $+$11.19 & 5.320 & $+$6.547 & 5.035 \\
+$\Delta$rating & $-$2.141 & 0.246 & $-$3.172 & 0.515 \\
+$\Delta$gdpg & $+$0.072 & 0.037 & $+$0.123 & 0.049 \\
+\midrule
+N obs / N countries & \multicolumn{2}{c}{131 / 34} &
+                      \multicolumn{2}{c}{131 / 34} \\
+1st-stage R$^2$ ($\Delta Y_{t-1}$) & \multicolumn{2}{c}{---} &
+                                      \multicolumn{2}{c}{0.375} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent The OLS estimate $\beta_y = -0.381$*** indicates strong
+mean-reversion. The IV estimate ($+0.039$, p\,$>$\,0.10) is not significant.
+The \texttt{fie} effect remains positive in both specs but loses significance
+under IV.
+
+\section{Discussion}
+
+\subsection{Comparison with Mertzanis (2024)}
+
+\textbf{CB policy variables:} Time-invariance prevents within-country
+identification. Between-country signs are negative (opposite to Mertzanis).
+Only \texttt{cbenf} achieves weak significance ($-0.177$**) in Year FE; IV
+confirms negative point estimates but faces weak-instrument concerns.
+
+\textbf{Financial integration:} Entity FE ($+22.31$***) shows that within
+a country, higher \texttt{fie} strongly predicts higher green bond issuance.
+Consistent across TWFE ($+7.54$**) and FD ($+27.45$***). Large magnitude
+partly reflects the small within-variance of \texttt{fie} (7.7\%).
+
+\textbf{Sovereign rating:} Positive across entity-FE specifications
+($+0.783$***). Better credit quality enables lower-cost green bond issuance.
+
+\subsection{Limitations}
+
+Time-invariant CB variables cannot be identified by FE. Short average T
+limits TWFE precision. All IV first-stage F-stats below 10 (weak instruments).
+Country heterogeneity is large; pooled coefficients may not represent any
+individual country. Dynamic extension is degenerate for CB variables.
+
+\section{References}
+
+\begin{itemize}
+\item Anderson, T.W. and Hsiao, C. (1981). Estimation of dynamic models with
+  error components. \textit{JASA}, 76(375), 598--606.
+\item Mertzanis, C. (2024). Central bank policies and green bond issuance
+  on a global scale. \textit{Energy Economics}, 133, 107541.
+\item Mundlak, Y. (1978). On the pooling of time series and cross section
+  data. \textit{Econometrica}, 46(1), 69--85.
+\item Nickell, S. (1981). Biases in dynamic models with fixed effects.
+  \textit{Econometrica}, 49(6), 1417--1426.
+\item Wansbeek, T. and Kapteijn, A. (1989). Estimation of the
+  error-components model with incomplete panels.
+  \textit{Journal of Econometrics}, 41(3), 341--361.
+\item Wooldridge, J.M. (2010). \textit{Econometric Analysis of Cross Section
+  and Panel Data} (2nd ed.). MIT Press.
+\end{itemize}
+
+\appendix
+\section{Appendix A: Replication Checklist}
+
+\begin{longtable}{cp{1.5cm}p{7cm}l}
+\toprule
+\# & Section & Task & Status \\
+\midrule
+\endfirsthead
+\toprule
+\# & Section & Task & Status \\
+\midrule
+\endhead
+1  & Data    & Download Mendeley dataset (76 countries)             & Done \\
+2  & Data    & Load, inspect, rename variables                      & Done \\
+3  & Clean   & Consecutive-obs rule ($\geq 3$); N=53, NT=322        & Done \\
+4  & Clean   & Sample selection table                               & Done \\
+5  & Trans.  & Between transformation                               & Done \\
+6  & Trans.  & Within transformation                                & Done \\
+7  & Trans.  & First differences (NaN at individual breaks)         & Done \\
+8  & Trans.  & TWFE via Wansbeek-Kapteijn (unbalanced)              & Done \\
+9  & Var.    & Variance decomposition; 5 time-invariant vars found  & Done \\
+10 & Desc.   & Univariate stats (all 4 transforms)                  & Done \\
+11 & Desc.   & Correlation matrices                                 & Done \\
+12 & Desc.   & Country heterogeneity tables (fie; CB=0 by design)   & Done \\
+13 & Reg.    & Pooled OLS                                           & Done \\
+14 & Reg.    & Year FE                                              & Done \\
+15 & Reg.    & Entity FE                                            & Done \\
+16 & Reg.    & TWFE                                                 & Done \\
+17 & Reg.    & Between OLS (homework)                               & Done \\
+18 & Reg.    & Mundlak RE (homework)                                & Done \\
+19 & Reg.    & First Differences (homework)                         & Done \\
+20 & Rob.    & Paper Table 5 robustness                             & Done \\
+21 & Rob.    & Paper Table 7 additional controls                    & Done \\
+22 & IV      & Paper Table 6 IV/2SLS; all F $<$ 10 (weak)          & Done \\
+23 & Intx.   & Paper Table 9 interactions                           & Done \\
+24 & Dyn.    & AR(1) = $-$0.513 triggers Anderson-Hsiao             & Done \\
+25 & Dyn.    & Anderson-Hsiao IV; dX degenerate (CB time-invariant) & Done \\
+26 & Hausman & FE vs RE: FE preferred                               & Done \\
+\bottomrule
+\end{longtable}
+
+\section{Appendix B: Panel Data To-Do List}
+
+\begin{enumerate}
+\item \textbf{Identify variables.} Record Y, X, controls; check
+  time-invariance before choosing estimators.
+\item \textbf{Check within variance.} Variables with 0\% within variance are
+  dropped by entity FE/TWFE. Plan IV or between strategies.
+\item \textbf{Apply sample selection.} Require $\geq 3$ consecutive obs of Y.
+  Document excluded units and selection bias.
+\item \textbf{Describe panel structure.} Attrition tables: N by date, T
+  distribution, proportion with holes.
+\item \textbf{Compute all four transformations.} Between, one-way within, FD
+  (NaN at breaks), TWFE (Wansbeek-Kapteijn for unbalanced).
+\item \textbf{Run five standard estimators.} Between OLS, Entity FE, Mundlak
+  RE, TWFE, First Differences. Cluster SEs by entity.
+\item \textbf{Run Hausman test.} Confirm Mundlak RE matches FE on
+  time-varying regressors.
+\item \textbf{Check AR(1) of $\Delta Y$.} If $|$AR(1)$|>0.10$, use
+  Anderson-Hsiao. Check first-stage F\,$>$\,10.
+\item \textbf{Handle time-invariant X.} Between/Pooled OLS for point
+  estimates; IV with cross-sectional instruments (flag if F\,$<$\,10).
+\item \textbf{Report actual numbers only.} Never substitute fabricated or
+  illustrative values for script output.
+\end{enumerate}
+
+\end{document}

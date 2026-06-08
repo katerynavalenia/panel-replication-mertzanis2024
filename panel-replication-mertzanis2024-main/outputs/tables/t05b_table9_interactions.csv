@@ -1,0 +1,4 @@
+spec,N_obs,N_ids,coef_cbenf,coef_ivar,coef_interact,se_interact,p_interact,stars_interact,R2
+cbenf × prodstr,205,39,-0.1641,0.7604,-0.0875,0.1496,0.562,,0.1367
+cbenf × bigtech,152,37,-0.1086,0.0049,0.0017,0.0009,0.0864,*,0.2395
+cbenf × ngain,165,38,1.8835,0.1526,-0.0287,0.0305,0.3524,,0.0935

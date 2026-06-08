@@ -1,0 +1,4 @@
+model,coef(cbmnd),stars,se(cbmnd),t(cbmnd),p(cbmnd),N_obs,N_ids
+1_Between,-0.07348,,0.11308,-0.6498,0.5204,39.0,39.0
+2_FE_OneWay,,,,,,206.0,39.0
+4_TWFE,,,,,,206.0,39.0

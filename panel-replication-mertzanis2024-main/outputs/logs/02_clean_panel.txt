@@ -1,0 +1,170 @@
+======================================================================
+STEP 2 — PANEL SAMPLE SELECTION
+======================================================================
+Starting sample: N=76, NT=351
+
+Rows with observed Y: 351 / 351 (100.0%)
+
+--- Sample selection (min 3 consecutive obs of Y) ---
+  N total      : 76
+  N kept       : 53
+  N excluded   : 23
+
+Excluded individuals (23):
+    1. Bangladesh
+    2. Costa Rica
+    3. Czech Rep.
+    4. Egypt
+    5. Estonia
+    6. Fiji
+    7. Georgia
+    8. Hungary
+    9. Iceland
+   10. Israel
+   11. Lithuania
+   12. Marshall Islands
+   13. Morocco
+   14. Namibia
+   15. Nigeria
+   16. Pakistan
+   17. Romania
+   18. Serbia
+   19. Seychelles
+   20. Slovak Rep.
+   21. Slovenia
+   22. Ukraine
+   23. Vietnam
+
+Kept individuals (53):
+    1. Argentina
+    2. Australia
+    3. Austria
+    4. Belgium
+    5. Bermuda
+    6. Brazil
+    7. British Virgin Islands
+    8. Canada
+    9. Cayman Islands
+   10. Chile
+   11. China
+   12. Colombia
+   13. Denmark
+   14. Finland
+   15. France
+   16. Germany
+   17. Greece
+   18. Guernsey
+   19. Hong Kong
+   20. India
+   21. Indonesia
+   22. Ireland
+   23. Italy
+   24. Japan
+   25. Jersey
+   26. Korea, Rep.
+   27. Latvia
+   28. Liechtenstein
+   29. Luxembourg
+   30. Macao
+   31. Malaysia
+   32. Mauritius
+   33. Mexico
+   34. Netherlands
+   35. New Zealand
+   36. Norway
+   37. Panama
+   38. Peru
+   39. Philippines
+   40. Poland
+   41. Portugal
+   42. Russia
+   43. Singapore
+   44. South Africa
+   45. Spain
+   46. Sweden
+   47. Switzerland
+   48. Taiwan
+   49. Thailand
+   50. Turkey
+   51. United Arab Emirates
+   52. United Kingdom
+   53. United States
+
+  NT in cleaned sample: 322
+
+--- Observations per year ---
+ year  N_obs
+ 1991      1
+ 1992      2
+ 1993      2
+ 1994      1
+ 1999      1
+ 2000      2
+ 2002      2
+ 2003      4
+ 2004      1
+ 2008      1
+ 2010      1
+ 2011      1
+ 2012      4
+ 2013      8
+ 2014     18
+ 2015     19
+ 2016     29
+ 2017     36
+ 2018     38
+ 2019     49
+ 2020     51
+ 2021     51
+
+[SAVED] /Users/solaforsure/Desktop/panel-replication-mertzanis2024-main/Econometrics_project/outputs/figures/fig01_obs_per_year.png
+
+--- T distribution (individuals by number of Y observations) ---
+  Tmax = 15
+ T_obs  N_individuals
+    15              1
+    12              1
+    10              3
+     9              4
+     8              5
+     7              7
+     6              8
+     5              7
+     4              6
+     3             11
+
+--- Individuals with holes (discontinuous Y observations) ---
+  Count: 25 / 53 (47.2%)
+  List:
+    Argentina
+    Austria
+    Belgium
+    British Virgin Islands
+    Cayman Islands
+    Colombia
+    Denmark
+    Germany
+    Hong Kong
+    India
+    Ireland
+    Italy
+    Korea, Rep.
+    Latvia
+    Luxembourg
+    Mauritius
+    Norway
+    Panama
+    Peru
+    Poland
+    South Africa
+    Spain
+    Switzerland
+    United Arab Emirates
+    United States
+
+--- Panel type ---
+  Tmax     = 15
+  Balanced = False
+  → Unbalanced panel. TWFE will use Wansbeek-Kapteijn residuals.
+
+[SAVED] /Users/solaforsure/Desktop/panel-replication-mertzanis2024-main/Econometrics_project/data/processed/panel_clean.csv

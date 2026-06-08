@@ -1,0 +1,168 @@
+======================================================================
+STEP 6 — OPTIONAL: ANDERSON-HSIAO DYNAMIC PANEL
+======================================================================
+
+Autocorrelation r(ΔY_t, ΔY_{t-1}) = -0.5123  (p = 0.0000)
+→ Autocorrelation ≥ 0.1. Running Anderson-Hsiao estimator.
+
+--- 1. Univariate stats ---
+variable   N     mean  median     std  skewness  kurtosis      min     max
+      dY 269  0.47347 0.40324 1.41118    0.4135    1.8389 -3.40648 5.51358
+     dY1 216  0.43754 0.28208 1.45401    0.6537    1.8730 -3.40648 5.51358
+      dX 236  0.00000 0.00000 0.00000       NaN       NaN  0.00000 0.00000
+     dX1 189  0.00000 0.00000 0.00000       NaN       NaN  0.00000 0.00000
+    Y_l2 216 -0.16548 0.00000 1.84964   -0.2535   -0.4527 -4.91413 3.72232
+    X_l2 189  4.80423 5.00000 1.75001   -0.4094    0.1860  0.00000 8.00000
+
+--- 2. Correlation matrix ---
+          dY     dY1  dX  dX1    Y_l2    X_l2
+dY    1.0000 -0.4917 NaN  NaN  0.0255 -0.0767
+dY1  -0.4917  1.0000 NaN  NaN -0.4322 -0.0010
+dX       NaN     NaN NaN  NaN     NaN     NaN
+dX1      NaN     NaN NaN  NaN     NaN     NaN
+Y_l2  0.0255 -0.4322 NaN  NaN  1.0000 -0.0884
+X_l2 -0.0767 -0.0010 NaN  NaN -0.0884  1.0000
+
+  Instrument strength r(dY1, Y_l2) = -0.4322
+  Instrument strength r(dX,  X_l2) = nan
+
+--- 3. OLS (Anderson-Hsiao step 1, no IV) ---
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                     dY   R-squared:                       0.428
+Model:                            OLS   Adj. R-squared:                  0.353
+Method:                 Least Squares   F-statistic:                     155.0
+Date:                Sun, 07 Jun 2026   Prob (F-statistic):           4.94e-65
+Time:                        22:26:55   Log-Likelihood:                -191.73
+No. Observations:                 131   AIC:                             415.5
+Df Residuals:                     115   BIC:                             461.5
+Df Model:                          15                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.7599      0.126      6.034      0.000       0.513       1.007
+dY1           -0.3807      0.089     -4.289      0.000      -0.555      -0.207
+dX          8.783e-15   3.53e-15      2.490      0.013    1.87e-15    1.57e-14
+dX1        -6.765e-14   3.29e-14     -2.056      0.040   -1.32e-13   -3.16e-15
+dinfl         -0.0007      0.008     -0.085      0.932      -0.016       0.015
+drating       -2.1411      0.246     -8.702      0.000      -2.623      -1.659
+dfie          11.1871      5.320      2.103      0.035       0.760      21.615
+dgdpg          0.0722      0.037      1.931      0.053      -0.001       0.145
+ddum9      -9.905e-16   6.59e-16     -1.502      0.133   -2.28e-15    3.02e-16
+ddum12      9.901e-17   8.38e-17      1.182      0.237   -6.52e-17    2.63e-16
+td_1992    -1.286e-15   5.22e-16     -2.463      0.014   -2.31e-15   -2.63e-16
+td_1993     2.824e-16   2.46e-16      1.150      0.250   -1.99e-16    7.64e-16
+td_1994     4.389e-16   1.12e-16      3.910      0.000    2.19e-16    6.59e-16
+td_1999       2.3e-15   1.07e-15      2.144      0.032    1.98e-16     4.4e-15
+td_2000     1.974e-16   6.97e-18     28.303      0.000    1.84e-16    2.11e-16
+td_2002    -1.299e-16   1.37e-17     -9.469      0.000   -1.57e-16   -1.03e-16
+td_2003        2.8876      0.364      7.942      0.000       2.175       3.600
+td_2004             0          0        nan        nan           0           0
+td_2008       -1.0792      0.237     -4.545      0.000      -1.545      -0.614
+td_2010             0          0        nan        nan           0           0
+td_2011       -2.4299      0.125    -19.461      0.000      -2.675      -2.185
+td_2012             0          0        nan        nan           0           0
+td_2013        1.4033      1.041      1.348      0.178      -0.638       3.444
+td_2014        0.8398      0.348      2.415      0.016       0.158       1.521
+td_2015        0.2784      0.264      1.055      0.292      -0.239       0.796
+td_2016       -0.3197      0.380     -0.842      0.400      -1.064       0.424
+td_2017       -0.1688      0.271     -0.622      0.534      -0.701       0.363
+td_2018       -0.5471      0.310     -1.763      0.078      -1.156       0.061
+td_2019        0.0631      0.217      0.290      0.772      -0.363       0.489
+td_2020       -0.1675      0.270     -0.619      0.536      -0.697       0.362
+td_2021             0          0        nan        nan           0           0
+==============================================================================
+Omnibus:                       32.727   Durbin-Watson:                   1.905
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              135.266
+Skew:                           0.761   Prob(JB):                     4.24e-30
+Kurtosis:                       7.740   Cond. No.                     1.47e+16
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+[2] The smallest eigenvalue is 2.42e-29. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+
+  N obs = 131, N countries = 34
+
+--- 4. IV — Anderson-Hsiao (instruments: Y_l2, X_l2) ---
+  [ERROR IV2SLS] regressors [exog endog] do not have full column rank. Falling back to manual 2SLS.
+  Using manual 2SLS (linearmodels not available).
+
+  First-stage R² (dY1): 0.3754
+  First-stage R² (dX1): nan
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                     dY   R-squared:                       0.285
+Model:                            OLS   Adj. R-squared:                  0.192
+Method:                 Least Squares   F-statistic:                     99.90
+Date:                Sun, 07 Jun 2026   Prob (F-statistic):           6.43e-55
+Time:                        22:26:56   Log-Likelihood:                -206.34
+No. Observations:                 131   AIC:                             444.7
+Df Residuals:                     115   BIC:                             490.7
+Df Model:                          15                                         
+Covariance Type:                  HC1                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.5115      0.158      3.248      0.001       0.203       0.820
+dX         -1.078e-13   7.88e-14     -1.368      0.171   -2.62e-13    4.66e-14
+dinfl          0.0079      0.009      0.889      0.374      -0.010       0.025
+drating       -3.1716      0.515     -6.158      0.000      -4.181      -2.162
+dfie           6.5471      5.035      1.300      0.193      -3.320      16.415
+dgdpg          0.1226      0.049      2.496      0.013       0.026       0.219
+ddum9       1.429e-15   1.06e-15      1.345      0.179   -6.54e-16    3.51e-15
+ddum12     -1.262e-15   7.54e-16     -1.674      0.094   -2.74e-15    2.16e-16
+td_1992    -1.792e-15   1.24e-15     -1.448      0.148   -4.22e-15    6.34e-16
+td_1993     5.098e-15   3.59e-15      1.419      0.156   -1.94e-15    1.21e-14
+td_1994    -2.083e-15   9.67e-16     -2.155      0.031   -3.98e-15   -1.89e-16
+td_1999    -2.008e-15   1.64e-15     -1.222      0.222   -5.23e-15    1.21e-15
+td_2000     -5.55e-17   2.34e-16     -0.238      0.812   -5.13e-16    4.02e-16
+td_2002      2.75e-15   2.16e-15      1.274      0.202   -1.48e-15    6.98e-15
+td_2003        2.8559      0.377      7.584      0.000       2.118       3.594
+td_2004     4.211e-17    7.4e-18      5.689      0.000    2.76e-17    5.66e-17
+td_2008       -1.9730      0.488     -4.041      0.000      -2.930      -1.016
+td_2010             0          0        nan        nan           0           0
+td_2011       -2.6216      0.178    -14.687      0.000      -2.971      -2.272
+td_2012             0          0        nan        nan           0           0
+td_2013        2.2789      1.169      1.950      0.051      -0.011       4.569
+td_2014        0.2575      0.601      0.429      0.668      -0.920       1.435
+td_2015        0.1949      0.316      0.618      0.537      -0.424       0.813
+td_2016       -0.4447      0.350     -1.272      0.203      -1.130       0.241
+td_2017        0.0350      0.272      0.129      0.898      -0.497       0.567
+td_2018       -0.4993      0.342     -1.459      0.145      -1.170       0.171
+td_2019        0.4814      0.336      1.431      0.152      -0.178       1.141
+td_2020       -0.0536      0.299     -0.179      0.858      -0.639       0.532
+td_2021             0          0        nan        nan           0           0
+dY1            0.0393      0.200      0.196      0.844      -0.353       0.432
+dX1                 0          0        nan        nan           0           0
+==============================================================================
+Omnibus:                       27.418   Durbin-Watson:                   2.559
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               69.379
+Skew:                           0.792   Prob(JB):                     8.60e-16
+Kurtosis:                       6.194   Cond. No.                     5.57e+16
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+[2] The smallest eigenvalue is 1.68e-30. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+
+--- 5. Impulse Response Function (IV estimates) ---
+
+  β_y = 0.0393,  β1 = -0.0000,  β2 = 0.0000
+  IRF t=1 : -0.00000
+  IRF t=2 : -0.00000
+  IRF t=3 : -0.00000
+  IRF t=4 : -0.00000
+
+  Long-run coefficient: (β1+β2)/(1-β_y) = -0.00000
+
+[SAVED] /Users/solaforsure/Desktop/panel-replication-mertzanis2024-main/Econometrics_project/outputs/figures/fig14_impulse_response.png
+
+--- OLS vs IV comparison ---
+   parameter           OLS            IV
+beta_y (dY1) -3.806700e-01  3.928257e-02
+  beta1 (dX)  8.783313e-15 -1.078314e-13
+ beta2 (dX1) -6.765079e-14  0.000000e+00

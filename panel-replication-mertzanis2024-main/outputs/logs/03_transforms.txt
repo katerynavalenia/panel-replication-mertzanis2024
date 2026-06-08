@@ -1,0 +1,67 @@
+======================================================================
+STEP 3 — PANEL TRANSFORMATIONS
+======================================================================
+Variables to transform: ['bndgrn', 'cbmnd', 'infl', 'rating', 'fie', 'gdpg', 'dum9', 'dum12']
+
+--- A. Between transformation ---
+--- B. One-way within (FE) transformation ---
+--- C. First differences ---
+
+First-difference check (first 15 obs) —
+      country  year  bndgrn_fd  cbmnd_fd
+0   Argentina  2017        NaN       NaN
+1   Argentina  2020  -1.691711       0.0
+2   Argentina  2021   1.607945       0.0
+3   Australia  2014        NaN       NaN
+4   Australia  2015   0.027094       0.0
+5   Australia  2016   0.014166       0.0
+6   Australia  2017   1.540044       0.0
+7   Australia  2018  -0.118480       0.0
+8   Australia  2019  -0.119229       0.0
+9   Australia  2020   0.148773       0.0
+10  Australia  2021   0.720208       0.0
+11    Austria  2014        NaN       NaN
+12    Austria  2016   0.905540       0.0
+13    Austria  2017  -0.947067       0.0
+14    Austria  2018   0.049965       0.0
+
+--- D. TWFE transformation ---
+  Balanced sub-panel: N=1, T=15
+
+--- Time means (balanced sub-panel) for TWFE ---
+  x_bar_t - x_bar  (should sum close to 0):
+year
+1991   -3.6065
+1992   -3.4242
+1993   -4.1173
+2000   -3.6761
+2003   -1.1227
+2008   -2.2507
+2013   -1.1521
+2014    1.2572
+2015    1.8863
+2016    1.4176
+2017    2.0635
+2018    1.8377
+2019    3.0358
+2020    3.6511
+2021    4.2003
+
+--- F. Variance decomposition ---
+variable  N  NT  NT/N  overall_var  between_var  within_var  pct_within
+   cbmnd 53 283  5.34       3.1189       3.3016      0.0000      0.0000
+   dum12 53 322  6.08       0.2329       0.2540      0.0000      0.0000
+    dum9 53 322  6.08       0.2236       0.2148      0.0000      0.0000
+  rating 53 308  5.81       0.2692       0.3663      0.0112      4.1491
+     fie 53 245  4.62       0.0110       0.0105      0.0008      7.6509
+  bndgrn 53 322  6.08       3.6196       1.5698      2.1491     59.3739
+    gdpg 53 246  4.64      28.2143      23.3421     17.4999     62.0249
+    infl 53 290  5.47      19.0013       6.5537     14.3483     75.5120
+
+--- G. Variable classification ---
+  Time-invariant (0% within)   : ['cbmnd', 'dum12', 'dum9']
+  Individual-invariant (100%)  : []
+  Double-indexed (0-100%)      : ['rating', 'fie', 'bndgrn', 'gdpg', 'infl']
+
+[SAVED] /Users/solaforsure/Desktop/panel-replication-mertzanis2024-main/Econometrics_project/data/processed/panel_transforms.csv
+  Shape: (322, 65)

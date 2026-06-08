@@ -1,0 +1,175 @@
+======================================================================
+STEP 4 — DESCRIPTIVE STATISTICS AND PLOTS
+======================================================================
+
+--- PAPER TABLE 2: Summary statistics (listwise = regression sample) ---
+  Listwise N = 206
+variable   N   mean     sd      min     p25    p50    p75     max  skewness  kurtosis
+  bndgrn 206 0.1088 1.8529  -4.9141 -0.9271 0.2203 1.3881  3.7233   -0.2996   -0.2816
+   cbmnd 206 4.7330 1.7729   0.0000  4.0000 4.0000 6.0000  8.0000   -0.4028    0.1262
+   cbenf 206 5.1262 1.8329   0.0000  6.0000 6.0000 6.0000  6.0000   -1.9306    2.3703
+   cbsys 206 1.0291 0.9971   0.0000  0.0000 1.0000 2.0000  3.0000    0.4152   -1.0902
+    infl 206 2.3127 4.9042 -28.6200  0.9600 1.6500 2.3375 32.3000    1.4902   22.9881
+  rating 206 3.7330 0.4753   2.0000  3.2500 4.0000 4.0000  4.0000   -1.4563    1.0322
+     fie 206 0.7933 0.1066   0.4723  0.7277 0.8238 0.8733  0.9392   -1.0334    0.5054
+    gdpg 206 1.1401 3.7479 -14.8678  0.9228 1.9631 2.9121  8.5164   -1.4885    2.8143
+    dum9 206 0.3835 0.4874   0.0000  0.0000 0.0000 1.0000  1.0000    0.4792   -1.7704
+   dum12 206 0.7427 0.4382   0.0000  0.0000 1.0000 1.0000  1.0000   -1.1105   -0.7668
+
+--- PAPER TABLE 3: Correlation matrix and VIF ---
+
+Correlation matrix:
+        bndgrn   cbmnd   cbenf   cbsys    infl  rating     fie    gdpg    dum9   dum12
+bndgrn  1.0000 -0.0685 -0.1271  0.0150 -0.1158  0.1922  0.1872 -0.0521  0.1915  0.1484
+cbmnd  -0.0685  1.0000 -0.1667 -0.0866  0.0022  0.0597 -0.4083 -0.0487 -0.0954  0.0995
+cbenf  -0.1271 -0.1667  1.0000  0.1101  0.0491 -0.2019  0.1021 -0.0799 -0.1964 -0.2084
+cbsys   0.0150 -0.0866  0.1101  1.0000  0.0237  0.1194  0.1706 -0.0313 -0.0131  0.0619
+infl   -0.1158  0.0022  0.0491  0.0237  1.0000 -0.0363 -0.0605  0.0269 -0.0878 -0.0660
+rating  0.1922  0.0597 -0.2019  0.1194 -0.0363  1.0000  0.2888  0.1971  0.0862  0.4415
+fie     0.1872 -0.4083  0.1021  0.1706 -0.0605  0.2888  1.0000  0.0456  0.2874  0.2671
+gdpg   -0.0521 -0.0487 -0.0799 -0.0313  0.0269  0.1971  0.0456  1.0000 -0.0356  0.0065
+dum9    0.1915 -0.0954 -0.1964 -0.0131 -0.0878  0.0862  0.2874 -0.0356  1.0000  0.4642
+dum12   0.1484  0.0995 -0.2084  0.0619 -0.0660  0.4415  0.2671  0.0065  0.4642  1.0000
+
+VIF (mean VIF and individual):
+  Mean VIF = 1.307
+variable   VIF
+   dum12 1.679
+     fie 1.546
+  rating 1.480
+    dum9 1.444
+   cbmnd 1.311
+   cbenf 1.171
+    gdpg 1.062
+   cbsys 1.057
+    infl 1.013
+
+--- B. Univariate stats (all 4 transformations) ---
+               variable   N     mean  p50_median      sd  min_std      p25      p75  max_std  skewness  kurtosis
+       bndgrn [Between] 322  0.12003     0.15495 1.21264   -2.430 -0.62246  0.93771    1.952   -0.2029   -0.1749
+        cbmnd [Between] 283  4.79859     5.00000 1.76603   -2.717  4.00000  6.00000    1.813   -0.3852    0.0523
+         infl [Between] 291  2.20550     1.78889 2.15379   -1.976  0.96400  2.50000    5.619    1.9948    8.8330
+       rating [Between] 316  3.73101     4.00000 0.50618   -4.737  3.71429  4.00000    0.531   -1.9858    4.2493
+          fie [Between] 289  0.79669     0.83251 0.10062   -2.877  0.74913  0.87170    1.281   -1.0745    0.3633
+         gdpg [Between] 302  0.83389     0.82456 3.52555   -8.595  0.15501  2.01661    1.516   -6.1971   51.9012
+         dum9 [Between] 322  0.33540     0.00000 0.47287   -0.709  0.00000  1.00000    1.405    0.6972   -1.5138
+        dum12 [Between] 322  0.63354     1.00000 0.48259   -1.313  0.00000  1.00000    0.759   -0.5543   -1.6928
+bndgrn [One-Way Within] 322  0.00000     0.19583 1.46597   -3.915 -0.88481  0.95661    2.865   -0.6429    1.0118
+ cbmnd [One-Way Within] 283  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+  infl [One-Way Within] 290 -0.00000    -0.13057 3.78791   -7.014 -0.68092  0.34324    6.921    1.6191   27.4329
+rating [One-Way Within] 308  0.00000     0.00000 0.10568   -6.759  0.00000  0.00000    6.308   -2.3068   28.9815
+   fie [One-Way Within] 245  0.00000     0.00000 0.02897   -5.123 -0.01625  0.02044    3.037   -1.0050    4.0934
+  gdpg [One-Way Within] 246 -0.00000     0.70831 4.18329   -6.416 -0.41188  1.79388    6.416   -0.8161   14.0889
+  dum9 [One-Way Within] 322  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+ dum12 [One-Way Within] 322  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+          bndgrn [TWFE]  15 -0.00000    -0.00000 0.00000   -0.379 -0.00000 -0.00000    2.463    2.1573    2.6538
+           cbmnd [TWFE]  15  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+            infl [TWFE]  15  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+          rating [TWFE]  12  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+             fie [TWFE]  14  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+            gdpg [TWFE]  11 -0.00000    -0.00000 0.00000   -0.870 -0.00000  0.00000    1.044    0.1826   -1.9667
+            dum9 [TWFE]  15  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+           dum12 [TWFE]  15  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+    bndgrn [First Diff] 269  0.47347     0.40324 1.41118   -2.749 -0.27115  1.15668    3.572    0.4135    1.8389
+     cbmnd [First Diff] 236  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+      infl [First Diff] 245 -0.07429    -0.01000 5.73805   -5.451 -0.46000  0.38000    5.860    0.2418   20.3721
+    rating [First Diff] 256  0.00000     0.00000 0.12524   -7.984  0.00000  0.00000    7.984    0.0000   61.0000
+       fie [First Diff] 199  0.00907     0.01304 0.02396   -5.505  0.00000  0.01736    3.929   -0.8998    7.9519
+      gdpg [First Diff] 198 -1.97431    -0.53294 5.33090   -9.699 -2.19621  0.38068    1.233   -5.3655   44.2566
+      dum9 [First Diff] 269  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+     dum12 [First Diff] 269  0.00000     0.00000 0.00000      NaN  0.00000  0.00000      NaN       NaN       NaN
+
+--- C. Distribution plots ---
+  [SAVED] fig03_bndgrn_bet_dist.png
+  [SAVED] fig03_bndgrn_wi_dist.png
+  [SAVED] fig03_bndgrn_twfe_dist.png
+  [SAVED] fig03_bndgrn_fd_dist.png
+  [SAVED] fig03_cbmnd_bet_dist.png
+  [SAVED] fig03_cbmnd_wi_dist.png
+  [SAVED] fig03_cbmnd_twfe_dist.png
+  [SAVED] fig03_cbmnd_fd_dist.png
+
+--- D. Bivariate Y vs cbmnd ---
+  [SAVED] fig04_bivariate_bet.png
+  [SAVED] fig04_bivariate_wi.png
+  [SAVED] fig04_bivariate_twfe.png
+  [SAVED] fig04_bivariate_fd.png
+
+--- E. Multi-fit bivariate plots ---
+  [SAVED] fig05_multfit_bet.png
+  [SAVED] fig05_multfit_wi.png
+  [SAVED] fig05_multfit_twfe.png
+  [SAVED] fig05_multfit_fd.png
+
+--- F. Boxplots by country ---
+  [SAVED] fig06_boxplot_twfe_bndgrn.png
+  [SAVED] fig06_boxplot_fd_bndgrn.png
+
+--- G. Correlation matrices (all transformations) ---
+  [SAVED] fig07_corr_bet.png
+  [SAVED] fig07_corr_wi.png
+  [SAVED] fig07_corr_twfe.png
+  [SAVED] fig07_corr_fd.png
+
+--- H. Heterogeneity by country (r sorted) ---
+
+  [TWFE] heterogeneity (top/bottom 10):
+country  T_i  r(bndgrn,cbmnd)  sigma_Y  sigma_X  sigma_Y/X  beta
+Germany   15              NaN      0.0      0.0        NaN   NaN
+Germany   15              NaN      0.0      0.0        NaN   NaN
+
+  [First Diff] heterogeneity (top/bottom 10):
+             country  T_i  r(bndgrn,cbmnd)  sigma_Y  sigma_X  sigma_Y/X  beta
+           Australia    7              NaN  0.61134      0.0        NaN   NaN
+             Austria    6              NaN  0.83914      0.0        NaN   NaN
+             Belgium    4              NaN  3.06070      0.0        NaN   NaN
+              Brazil    6              NaN  2.79008      0.0        NaN   NaN
+              Canada    7              NaN  0.65537      0.0        NaN   NaN
+      Cayman Islands    6              NaN  0.69672      0.0        NaN   NaN
+               Chile    4              NaN  3.15564      0.0        NaN   NaN
+               China    7              NaN  1.34666      0.0        NaN   NaN
+            Colombia    3              NaN  1.42256      0.0        NaN   NaN
+             Denmark    5              NaN  1.86240      0.0        NaN   NaN
+              Norway   11              NaN  1.66193      0.0        NaN   NaN
+                Peru    3              NaN  3.57824      0.0        NaN   NaN
+              Poland    3              NaN  0.80549      0.0        NaN   NaN
+        South Africa    5              NaN  0.66477      0.0        NaN   NaN
+               Spain    6              NaN  0.56805      0.0        NaN   NaN
+         Switzerland    8              NaN  0.99044      0.0        NaN   NaN
+            Thailand    3              NaN  1.04848      0.0        NaN   NaN
+United Arab Emirates    5              NaN  1.52187      0.0        NaN   NaN
+      United Kingdom    8              NaN  1.03562      0.0        NaN   NaN
+       United States    9              NaN  1.16501      0.0        NaN   NaN
+
+--- I. First-difference check (first 30 obs) ---
+      country  year  bndgrn_fd  cbmnd_fd
+0   Argentina  2017        NaN       NaN
+1   Argentina  2020  -1.691711       0.0
+2   Argentina  2021   1.607945       0.0
+3   Australia  2014        NaN       NaN
+4   Australia  2015   0.027094       0.0
+5   Australia  2016   0.014166       0.0
+6   Australia  2017   1.540044       0.0
+7   Australia  2018  -0.118480       0.0
+8   Australia  2019  -0.119229       0.0
+9   Australia  2020   0.148773       0.0
+10  Australia  2021   0.720208       0.0
+11    Austria  2014        NaN       NaN
+12    Austria  2016   0.905540       0.0
+13    Austria  2017  -0.947067       0.0
+14    Austria  2018   0.049965       0.0
+15    Austria  2019   1.382546       0.0
+16    Austria  2020  -0.273405       0.0
+17    Austria  2021   0.502712       0.0
+18    Belgium  2003        NaN       NaN
+19    Belgium  2016   0.732227       0.0
+20    Belgium  2018   5.291933       0.0
+21    Belgium  2020  -2.115775       0.0
+22    Belgium  2021   0.815230       0.0
+23    Bermuda  2016        NaN       NaN
+24    Bermuda  2017   0.133279       NaN
+25    Bermuda  2018   2.034776       NaN
+26    Bermuda  2019  -0.761055       NaN
+27    Bermuda  2020   1.883697       NaN
+28    Bermuda  2021  -0.417360       NaN
+29     Brazil  2015        NaN       NaN

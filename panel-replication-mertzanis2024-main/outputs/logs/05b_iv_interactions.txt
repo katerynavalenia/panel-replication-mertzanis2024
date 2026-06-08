@@ -1,0 +1,90 @@
+======================================================================
+STEP 5b — IV/2SLS AND INTERACTION TERMS
+======================================================================
+
+======================================================================
+PAPER TABLE 6 — IV / 2SLS  (between / cross-sectional)
+Instruments: cultural values (time-invariant, vary only across countries)
+Method: 2SLS on country means — correct for time-invariant endogenous vars
+======================================================================
+  (1) IV: cbmnd ~ hierarchy+purity
+    First-stage R² = 0.5326  |  partial F = 5.098  |  N = 34 countries
+      instrument hierarchy: coef=-3.3935 (1.0694)***
+      instrument purity: coef=-3.3991 (3.3845)
+    Second-stage results:
+      cbmnd: -0.5160 (0.2756)*
+      cbenf: -0.1403 (0.2063)
+      cbsys: -0.1365 (0.3016)
+      infl: -0.1230 (0.0903)
+  (2) IV: cbenf ~ hierarchy+openness
+    First-stage R² = 0.5276  |  partial F = 4.451  |  N = 27 countries
+      instrument hierarchy: coef=-3.1016 (1.4019)**
+      instrument openness: coef=0.0279 (0.1464)
+    Second-stage results:
+      cbenf: -0.8228 (0.3702)**
+      cbmnd: 0.3716 (0.2002)*
+      cbsys: -0.1967 (0.3171)
+      infl: 0.1582 (0.1360)
+  (3) IV: cbsys ~ hierarchy+openness
+    First-stage R² = 0.3140  |  partial F = 1.745  |  N = 27 countries
+      instrument hierarchy: coef=0.9646 (1.2233)
+      instrument openness: coef=-0.1303 (0.0974)
+    Second-stage results:
+      cbsys: 1.3719 (0.4084)***
+      cbmnd: 0.2230 (0.1916)
+      cbenf: -0.1521 (0.1557)
+      infl: -0.0580 (0.1048)
+
+--- Table 6 summary ---
+                              spec  N_countries  fs_R2  fs_Fstat  coef_cbmnd  se_cbmnd stars_cbmnd  coef_cbenf  se_cbenf stars_cbenf  coef_cbsys  se_cbsys stars_cbsys
+  (1) IV: cbmnd ~ hierarchy+purity           34 0.5326     5.098     -0.5160    0.2756           *     -0.1403    0.2063                 -0.1365    0.3016            
+(2) IV: cbenf ~ hierarchy+openness           27 0.5276     4.451      0.3716    0.2002           *     -0.8228    0.3702          **     -0.1967    0.3171            
+(3) IV: cbsys ~ hierarchy+openness           27 0.3140     1.745      0.2230    0.1916                 -0.1521    0.1557                  1.3719    0.4084         ***
+
+Weak instrument rule of thumb: F-stat > 10 is adequate.
+
+======================================================================
+PAPER TABLE 9 — INTERACTION TERMS
+interaction = cbenf × {prodstr, bigtech, ngain}
+Estimator: pooled OLS with cluster-robust SE (no entity FE,
+           since cbenf is time-invariant and would be absorbed)
+======================================================================
+
+  [cbenf × prodstr] N=205, N_countries=39
+    cbmnd                        -0.0766  (0.1315)
+    cbenf                        -0.1641  (0.0877)*
+    cbsys                         0.0037  (0.2668)
+    infl                         -0.0352  (0.0398)
+    rating                        0.5419  (0.4084)
+    fie                           2.0420  (1.8222)
+    prodstr                       0.7604  (0.7783)
+    cbenf_x_prodstr              -0.0875  (0.1496)
+  [SAVED] /Users/solaforsure/Desktop/panel-replication-mertzanis2024-main/Econometrics_project/outputs/figures/fig15_mfx_cbenf_prodstr.png
+
+  [cbenf × bigtech] N=152, N_countries=37
+    cbmnd                         0.0639  (0.1086)
+    cbenf                        -0.1086  (0.0937)
+    cbsys                        -0.1134  (0.2644)
+    infl                          0.0304  (0.0141)**
+    rating                        0.5534  (0.4469)
+    fie                           0.6360  (1.8594)
+    bigtech                       0.0049  (0.0036)
+    cbenf_x_bigtech               0.0017  (0.0009)*
+  [SAVED] /Users/solaforsure/Desktop/panel-replication-mertzanis2024-main/Econometrics_project/outputs/figures/fig15_mfx_cbenf_bigtech.png
+
+  [cbenf × ngain] N=165, N_countries=38
+    cbmnd                        -0.0046  (0.1212)
+    cbenf                         1.8835  (2.1266)
+    cbsys                         0.0057  (0.2470)
+    infl                         -0.0245  (0.0345)
+    rating                        0.4259  (0.4993)
+    fie                           2.1159  (1.5984)
+    ngain                         0.1526  (0.1796)
+    cbenf_x_ngain                -0.0287  (0.0305)
+  [SAVED] /Users/solaforsure/Desktop/panel-replication-mertzanis2024-main/Econometrics_project/outputs/figures/fig15_mfx_cbenf_ngain.png
+
+--- Table 9 summary ---
+           spec  N_obs  N_ids  coef_cbenf  coef_ivar  coef_interact  se_interact  p_interact stars_interact     R2
+cbenf × prodstr    205     39     -0.1641     0.7604        -0.0875       0.1496      0.5620                0.1367
+cbenf × bigtech    152     37     -0.1086     0.0049         0.0017       0.0009      0.0864              * 0.2395
+  cbenf × ngain    165     38      1.8835     0.1526        -0.0287       0.0305      0.3524                0.0935

@@ -1,0 +1,4 @@
+spec,endog_var,instruments,fs_R2,fs_F_stat,fs_F_pval
+(1) IV: cbmnd ~ hierarchy+purity,cbmnd,"hierarchy, purity",0.5822,35.852,0.0
+(2) IV: cbenf ~ hierarchy+openness,cbenf,"hierarchy, openness",0.4863,18.116,0.0
+(3) IV: cbsys ~ hierarchy+openness,cbsys,"hierarchy, openness",0.3492,24.826,0.0
